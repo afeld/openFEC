@@ -101,8 +101,9 @@ MUR_DOCUMENTS = """
         mur_id,
         length,
         url
-    FROM MUR_ARCH.DOCUMENTS
+    FROM MUR_ARCH.DOCUMENTS_2
     WHERE mur_id = %s
+    ORDER BY document_id
 """
 
 INSERT_DOCUMENT = """
@@ -347,7 +348,7 @@ def extract_pdf_text(mur_no=None):
                             if LOCAL_DEBUG:
                                 print("Archived Mur{0} has been inserted into table successfully".format(mur_no))
                                 print("Mur data = " + json.dumps(insert_data_doc, indent=4, cls=DateTimeEncoder))
-                elif mur.get("text"):
+                elif mur["text"]:
                     logger.info("Archived Mur{0} has no documents, but has text.".format(mur_no))
                     if LOCAL_DEBUG:
                         print("Archived Mur{0} has no documents, but has text.".format(mur_no))
